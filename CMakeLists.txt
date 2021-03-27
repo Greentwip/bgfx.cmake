@@ -12,7 +12,7 @@ cmake_minimum_required( VERSION 3.0 )
 project(bgfx)
 
 # sets project version from api ver / git rev
-include( cmake/version.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/version.cmake )
 
 set_property( GLOBAL PROPERTY USE_FOLDERS ON )
 set(CMAKE_CXX_STANDARD 14)
@@ -41,36 +41,24 @@ set( BGFX_LIBRARY_TYPE     "STATIC" CACHE STRING "Linking type for library" )
 
 set_property( CACHE BGFX_LIBRARY_TYPE PROPERTY STRINGS STATIC SHARED )
 
-if( NOT BX_DIR )
-	set( BX_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bx" CACHE STRING "Location of bx." )
-elseif( NOT IS_ABSOLUTE "${BX_DIR}")
-	get_filename_component(BX_DIR "${BX_DIR}" REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
-if( NOT BIMG_DIR )
-	set( BIMG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bimg" CACHE STRING "Location of bimg." )
-elseif( NOT IS_ABSOLUTE "${BIMG_DIR}")
-	get_filename_component(BIMG_DIR "${BIMG_DIR}" REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
-if( NOT BGFX_DIR )
-	set( BGFX_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bgfx" CACHE STRING "Location of bgfx." )
-elseif( NOT IS_ABSOLUTE "${BGFX_DIR}")
-	get_filename_component(BGFX_DIR "${BGFX_DIR}" REALPATH BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-endif()
+set( BX_DIR "${STORM_EXTERN_RENDERING_DIR}/bx" CACHE STRING "Location of bx." FORCE )
+set( BIMG_DIR "${STORM_EXTERN_RENDERING_DIR}/bimg" CACHE STRING "Location of bimg." FORCE )
+set( BGFX_DIR "${STORM_EXTERN_RENDERING_DIR}/bgfx" CACHE STRING "Location of bgfx." FORCE )
 
 if( BGFX_USE_OVR )
-	include( cmake/ovr.cmake )
+	include( ${STORM_EXTERN_RENDERING_DIR}/cmake/ovr.cmake )
 endif()
 
-include( cmake/shared.cmake )
-include( cmake/bx.cmake )
-include( cmake/bimg.cmake )
-include( cmake/bgfx.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/shared.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/bx.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/bimg.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/bgfx.cmake )
 
 if( BGFX_BUILD_TOOLS )
-	include( cmake/tools.cmake )
+	include( ${STORM_EXTERN_RENDERING_DIR}/cmake/tools.cmake )
 endif()
 
-include( cmake/examples.cmake )
+include( ${STORM_EXTERN_RENDERING_DIR}/cmake/examples.cmake )
 
 if( BGFX_INSTALL )
 	include(GNUInstallDirs)
@@ -110,7 +98,7 @@ if( BGFX_INSTALL )
 	#   * TARGETS_EXPORT_NAME
 	#   * PROJECT_NAME
 	configure_package_config_file(
-		"cmake/Config.cmake.in"
+		"${STORM_EXTERN_RENDERING_DIR}/cmake/Config.cmake.in"
 		"${project_config}"
 		INSTALL_DESTINATION "${config_install_dir}"
 	)
