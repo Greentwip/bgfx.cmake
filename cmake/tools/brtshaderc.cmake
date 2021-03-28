@@ -21,6 +21,14 @@ if( TARGET brtshaderc )
 	return()
 endif()
 
+#file( GLOB brtcshader_SOURCES 
+#${BGFX_DIR}/tools/shaderc/shaderc_glsl.cpp 
+#${BGFX_DIR}/tools/shaderc/shaderc_hlsl.cpp 
+#${BGFX_DIR}/tools/shaderc/shaderc_pssl.cpp 
+#${BGFX_DIR}/tools/shaderc/shaderc_spirv.cpp 
+#${BGFX_DIR}/tools/shaderc/shaderc_metal.cpp
+#${BGFX_DIR}/tools/brtshaderc/brtshaderc.cpp )
+
 file( GLOB brtcshader_SOURCES ${BGFX_DIR}/tools/brtshaderc/brtshaderc.cpp )
 
 add_library( brtshaderc STATIC EXCLUDE_FROM_ALL ${brtcshader_SOURCES} )
