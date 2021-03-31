@@ -10,7 +10,7 @@
 
 if( BGFX_CUSTOM_TARGETS )
 	add_custom_target( addons )
-	set_target_properties( addons PROPERTIES FOLDER "addons/tools" )
+	set_target_properties( addons PROPERTIES FOLDER "bgfx/addons" )
 endif()
 
 include( cmake/tools/brtshaderc.cmake )
